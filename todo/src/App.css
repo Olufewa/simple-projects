@@ -1,0 +1,40 @@
+.app {
+  max-width: 480px;
+  margin: 40px auto;
+  font-family: system-ui, sans-serif;
+}
+.todo-input {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.todo-input input {
+  flex: 1;
+  padding: 8px;
+}
+.todo-list {
+  list-style: none;
+  padding: 0;
+}
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid #ddd;
+}
+.title {
+  flex: 1;
+  cursor: text;
+}
+.title.done {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+.edit {
+  flex: 1;
+  padding: 4px;
+}
+.empty {
+  opacity: 0.6;
+}

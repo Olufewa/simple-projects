@@ -1,20 +1,20 @@
 import { useState } from "react";
 import type { Todo } from "../types";
+import { useTodoStore } from "../store/useTodoStore";
 
-type Props = {
-  todo: Todo;
-  onToggle: (id: string) => void;
-  onEdit: (id: string, title: string) => void;
-  onDelete: (id: string) => void;
-};
+type Props = { todo: Todo };
 
-export default function TodoItem({ todo, onToggle, onEdit, onDelete }: Props) {
+export default function TodoItem({ todo }: Props) {
   const [isEditing, setIsEditing] = useState(false);
   const [draft, setDraft] = useState(todo.tittle);
 
+  const toggleTodo = useTodoStore((s) => s.toggleTodo);
+  const editTodo = useTodoStore((s) => s.editTodo);
+  const deleteTodo = useTodoStore((s) => s.deleteTodo);
+
   function save() {
     const title = draft.trim();
-    if (title) onEdit(todo.id, title);
+    if (title) editTodo(todo.id, title);
     else setDraft(todo.tittle);
     setIsEditing(false);
   }
@@ -29,7 +29,7 @@ export default function TodoItem({ todo, onToggle, onEdit, onDelete }: Props) {
       <input
         type="checkbox"
         checked={todo.compeleted}
-        onChange={() => onToggle(todo.id)}
+        onChange={() => toggleTodo(todo.id)}
       />
 
       {isEditing ? (
@@ -53,7 +53,7 @@ export default function TodoItem({ todo, onToggle, onEdit, onDelete }: Props) {
         </span>
       )}
 
-      <button onClick={() => onDelete(todo.id)} aria-label="Delete">
+      <button onClick={() => deleteTodo(todo.id)} aria-label="Delete">
         ✕
       </button>
     </li>

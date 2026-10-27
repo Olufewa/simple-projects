@@ -1,15 +1,15 @@
 import { useState } from "react";
+import { useTodoStore } from "../store/useTodoStore";
 
-type Props = { onAdd: (title: string) => void };
-
-export default function TodoInput({ onAdd }: Props) {
+export default function TodoInput() {
   const [text, setText] = useState("");
+  const addTodo = useTodoStore((s) => s.addTodo);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const title = text.trim();
     if (!title) return;
-    onAdd(title);
+    addTodo(title);
     setText("");
   }
 
